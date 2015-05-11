@@ -54,7 +54,15 @@ public class FiveQuestionsTest {
     @Theory
     public void ByForLoop(Fixture p) {
       sut = new FiveQuestions();
-      double actual = sut.firstSumWithForLoop(p.numbers);
+      double actual = sut.firstSumByForLoop(p.numbers);
+      String msg = String.format("When numbers is <%s>", p.numbers);
+      assertThat(msg, actual, is(p.expected));
+    }
+
+    @Theory
+    public void ByWhileLoop(Fixture p) {
+      sut = new FiveQuestions();
+      double actual = sut.firstSumByWhileLoop(p.numbers);
       String msg = String.format("When numbers is <%s>", p.numbers);
       assertThat(msg, actual, is(p.expected));
     }
@@ -79,5 +87,9 @@ public class FiveQuestionsTest {
         this.expected = expected;
       }
     }
+  }
+
+  public static class SecondQuestion {
+    
   }
 }

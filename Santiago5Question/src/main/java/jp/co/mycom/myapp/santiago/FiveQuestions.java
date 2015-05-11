@@ -109,6 +109,7 @@ public class FiveQuestions {
    * 例えば最初の10個のフィボナッチ数列は、0, 1, 1, 2, 3, 5, 8, 13, 21, 34となる。
    */
   private static final int THIRD_START_NO = 1;
+
   public BigDecimal thirdCalcFibonacciNumbers(int numberOfLoop) {
     BigDecimal result = new BigDecimal(0);
     BigDecimal theSecondNumber = new BigDecimal(0);
@@ -117,7 +118,7 @@ public class FiveQuestions {
     for (int i = THIRD_START_NO; i < numberOfLoop; i++) {
       BigDecimal nextNumber = theSecondNumber.add(previousNumber);
       result = result.add(previousNumber);
-      
+
       theSecondNumber = previousNumber;
       previousNumber = nextNumber;
     }

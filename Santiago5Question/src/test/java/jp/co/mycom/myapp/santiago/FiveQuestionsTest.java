@@ -177,18 +177,18 @@ public class FiveQuestionsTest {
     public ThirdQuestion() {
       sut = new FiveQuestions();
     }
-    
+
     @DataPoints
     public static Fixture[] PARAMs = {
-      new Fixture(0, new BigDecimal("0")),
-      new Fixture(1, new BigDecimal("0")),
-      new Fixture(2, new BigDecimal("1")),
-      new Fixture(3, new BigDecimal("2")),
-      new Fixture(10, new BigDecimal("88")),
-      new Fixture(50, new BigDecimal("20365011073")),
-      new Fixture(100, new BigDecimal("573147844013817084100")),
+        new Fixture(0, new BigDecimal("0")),
+        new Fixture(1, new BigDecimal("0")),
+        new Fixture(2, new BigDecimal("1")),
+        new Fixture(3, new BigDecimal("2")),
+        new Fixture(10, new BigDecimal("88")),
+        new Fixture(50, new BigDecimal("20365011073")),
+        new Fixture(100, new BigDecimal("573147844013817084100")),
     };
-    
+
     @Theory
     public void calcFibonacciNumbers(Fixture p) {
       BigDecimal actual = sut.thirdCalcFibonacciNumbers(p.numberOfLoop);

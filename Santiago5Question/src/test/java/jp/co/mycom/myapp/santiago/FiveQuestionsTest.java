@@ -6,8 +6,11 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.experimental.runners.Enclosed;
+import org.junit.experimental.theories.DataPoints;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.runner.RunWith;
 
 //問題1
 //forループ、whileループ、および再帰を使用して、リスト内の数字の合計を計算する3つの関数を記述せよ。
@@ -29,107 +32,52 @@ import org.junit.Test;
 //1,2,…,9の数をこの順序で、”+”、”-“、またはななにもせず結果が100となるあらゆる組合せを出力するプログラムを記述せよ。
 //例えば、1 + 2 + 34 – 5 + 67 – 8 + 9 = 100となる(解答例)
 
+@RunWith(Enclosed.class)
 public class FiveQuestionsTest {
-  
-  private FiveQuestions sut;
-  
-  @Before
-  public void before() {
-    sut = new FiveQuestions();
-  }
 
-  @Test
-  public void firstWithForLoopCanSumByOneNumber() {
-    // expect
-    double expected = 1.0;
-    List<Double> numbers = new ArrayList<Double>() {
-      {
-        add(1.0);
-      }
+  private static FiveQuestions sut;
+
+  // 問題1
+  // forループ、whileループ、および再帰を使用して、リスト内の数字の合計を計算する3つの関数を記述せよ。
+  //
+  @RunWith(Theories.class)
+  public static class FirstQuestion {
+    @DataPoints
+    public static Fixture[] PARAMs = {
+        new Fixture(generateNumbers(1.0), 1.0),
+        new Fixture(generateNumbers(1.0, 2.0, 3.0), 6.0),
+        new Fixture(generateNumbers(1.1, 2.3, 3.1), 6.5),
+        new Fixture(generateNumbers(-1.1, -2.3, -3.1), -6.5),
+        new Fixture(generateNumbers(0.5, -1.1, 2.3, -3.1), -1.4),
     };
-    
-    // exercise
-    double actual = sut.firstSumWithForLoop(numbers);
-    
-    // verify
-    assertThat(actual, is(expected));
-  }
 
-  @Test
-  public void firstWithForLoopCanSumByNumbers() {
-    // expect
-    double expected = 6.0;
-    List<Double> numbers = new ArrayList<Double>() {
-      {
-        add(1.0);
-        add(2.0);
-        add(3.0);
+    @Theory
+    public void ByForLoop(Fixture p) {
+      sut = new FiveQuestions();
+      double actual = sut.firstSumWithForLoop(p.numbers);
+      String msg = String.format("When numbers is <%s>", p.numbers);
+      assertThat(msg, actual, is(p.expected));
+    }
+
+    @SuppressWarnings("serial")
+    private static ArrayList<Double> generateNumbers(double... numbers) {
+      return new ArrayList<Double>() {
+        {
+          for (double number : numbers) {
+            add(number);
+          }
+        }
+      };
+    }
+    
+    static class Fixture {
+      List<Double> numbers;
+      double expected;
+
+      Fixture(List<Double> numbers, double expected) {
+        this.numbers = numbers;
+        this.expected = expected;
       }
-    };
-    
-    // exercise
-    double actual = sut.firstSumWithForLoop(numbers);
-    
-    // verify
-    assertThat(actual, is(expected));
+    }
   }
-
-  @Test
-  public void firstWithForLoopCanSummaryByFloatingNumbers() {
-    // expect
-    double expected = 6.5;
-    List<Double> numbers = new ArrayList<Double>() {
-      {
-        add(1.1);
-        add(2.3);
-        add(3.1);
-      }
-    };
-    
-    // exercise
-    double actual = sut.firstSumWithForLoop(numbers);
-    
-    // verify
-    assertThat(actual, is(expected));
-  }
-
-  @Test
-  public void firstWithForLoopCanSummaryByMinusFloatingNumbers() {
-    // expect
-    double expected = -6.5;
-    List<Double> numbers = new ArrayList<Double>() {
-      {
-        add(-1.1);
-        add(-2.3);
-        add(-3.1);
-      }
-    };
-    
-    // exercise
-    double actual = sut.firstSumWithForLoop(numbers);
-    
-    // verify
-    assertThat(actual, is(expected));
-  }
-
-  @Test
-  public void firstWithForLoopCanSummaryByPlusAndMinusFloatingNumbers() {
-    // expect
-    double expected = -1.4;
-    List<Double> numbers = new ArrayList<Double>() {
-      {
-        add(0.5);
-        add(-1.1);
-        add(2.3);
-        add(-3.1);
-      }
-    };
-    
-    // exercise
-    double actual = sut.firstSumWithForLoop(numbers);
-    
-    // verify
-    assertThat(actual, is(expected));
-  }
-
 }

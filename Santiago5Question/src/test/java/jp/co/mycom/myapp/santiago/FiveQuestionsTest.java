@@ -3,13 +3,16 @@ package jp.co.mycom.myapp.santiago;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.experimental.theories.DataPoints;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
+import org.junit.experimental.theories.suppliers.TestedOn;
 import org.junit.runner.RunWith;
 
 //問題1
@@ -42,7 +45,7 @@ public class FiveQuestionsTest {
   //
   @RunWith(Theories.class)
   public static class FirstQuestion {
-    
+
     public FirstQuestion() {
       sut = new FiveQuestions();
     }
@@ -165,16 +168,110 @@ public class FiveQuestionsTest {
     }
   }
 
-  //問題3
-  //最初の100個のフィボナッチ数のリストを計算する関数を記述せよ。
-  //定義では、フィボナッチ数列の最初の2つの数字は0と1で、次の数は前の2つの合計となる。
-  //例えば最初の10個のフィボナッチ数列は、0, 1, 1, 2, 3, 5, 8, 13, 21, 34となる。
-  
-  //問題4
-  //正の整数のリストを与えられたとき、数を並び替えて可能な最大数を返す関数を記述せよ。
-  //例えば、[50, 2, 1, 9]が与えられた時、95021が答えとなる(解答例)。
-  
-  //問題5
-  //1,2,…,9の数をこの順序で、”+”、”-“、またはななにもせず結果が100となるあらゆる組合せを出力するプログラムを記述せよ。
-  //例えば、1 + 2 + 34 – 5 + 67 – 8 + 9 = 100となる(解答例)
+  // 問題3
+  // 最初の100個のフィボナッチ数のリストを計算する関数を記述せよ。
+  // 定義では、フィボナッチ数列の最初の2つの数字は0と1で、次の数は前の2つの合計となる。
+  // 例えば最初の10個のフィボナッチ数列は、0, 1, 1, 2, 3, 5, 8, 13, 21, 34となる。
+  public static class ThirdQuestion {
+    @Test
+    public void thirdCalcFibonacciNumbersCanCalcFrom0To3() {
+      // expect
+      sut = new FiveQuestions();
+      BigDecimal expected = new BigDecimal("2");
+
+      // exercise
+      BigDecimal actual = sut.thirdCalcFibonacciNumbers(3);
+
+      // verify
+      assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void thirdCalcFibonacciNumbersCanCalcFrom0To10() {
+      // expect
+      sut = new FiveQuestions();
+      BigDecimal expected = new BigDecimal("88");
+
+      // exercise
+      BigDecimal actual = sut.thirdCalcFibonacciNumbers(10);
+
+      // verify
+      assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void thirdCalcFibonacciNumbersCanCalcFrom0To50() {
+      // expect
+      sut = new FiveQuestions();
+      BigDecimal expected = new BigDecimal("20365011073");
+
+      // exercise
+      BigDecimal actual = sut.thirdCalcFibonacciNumbers(50);
+
+      // verify
+      assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void thirdCalcFibonacciNumbersCanCalcFrom0To100() {
+      // expect
+      sut = new FiveQuestions();
+      // Ref: http://faizulsgalore.blogspot.jp/2013/08/fibonacci-sequence-number-result-output.html
+      BigDecimal expected = new BigDecimal("573147844013817084100");
+      System.out.println(expected);
+
+      // exercise
+      BigDecimal actual = sut.thirdCalcFibonacciNumbers(100);
+
+      // verify
+      assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void thirdCalcFibonacciNumbersCanCalcFrom0To0() {
+      // expect
+      sut = new FiveQuestions();
+      BigDecimal expected = new BigDecimal("0");
+
+      // exercise
+      BigDecimal actual = sut.thirdCalcFibonacciNumbers(0);
+
+      // verify
+      assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void thirdCalcFibonacciNumbersCanCalcFrom0To1() {
+      // expect
+      sut = new FiveQuestions();
+      BigDecimal expected = new BigDecimal("0");
+
+      // exercise
+      BigDecimal actual = sut.thirdCalcFibonacciNumbers(1);
+
+      // verify
+      assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void thirdCalcFibonacciNumbersCanCalcFrom0To2() {
+      // expect
+      sut = new FiveQuestions();
+      BigDecimal expected = new BigDecimal("1");
+
+      // exercise
+      BigDecimal actual = sut.thirdCalcFibonacciNumbers(2);
+
+      // verify
+      assertThat(actual, is(expected));
+    }
+  }
+
+  // 問題4
+  // 正の整数のリストを与えられたとき、数を並び替えて可能な最大数を返す関数を記述せよ。
+  // 例えば、[50, 2, 1, 9]が与えられた時、95021が答えとなる(解答例)。
+
+  // 問題5
+  // 1,2,…,9の数をこの順序で、”+”、”-“、またはななにもせず結果が100となるあらゆる組合せを出力するプログラムを記述せよ。
+  // 例えば、1 + 2 + 34 – 5 + 67 – 8 + 9 = 100となる(解答例)
 }

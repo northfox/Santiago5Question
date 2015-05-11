@@ -68,9 +68,9 @@ public class FiveQuestionsTest {
     }
 
     @Theory
-    public void ByRecursionLoop(Fixture p) {
+    public void ByRecursion(Fixture p) {
       sut = new FiveQuestions();
-      double actual = sut.firstSumByWhileLoop(p.numbers);
+      double actual = sut.firstSumByRecursion(p.numbers);
       String msg = String.format("When numbers is <%s>", p.numbers);
       assertThat(msg, actual, is(p.expected));
     }

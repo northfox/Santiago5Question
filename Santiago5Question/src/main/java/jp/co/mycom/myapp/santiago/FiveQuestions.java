@@ -25,24 +25,35 @@ public class FiveQuestions {
     MathContext mathContext = new MathContext(4, RoundingMode.HALF_UP);
     BigDecimal result = new BigDecimal(0.0);
     List<Double> removableNumbers = new ArrayList<Double>(numbers);
-    
-    while(removableNumbers.size() != 0) {
+
+    while (removableNumbers.size() != 0) {
       BigDecimal addNumber = new BigDecimal(removableNumbers.remove(0));
       result = result.add(addNumber, mathContext);
     }
     return result.doubleValue();
   }
 
-  public double firstSumByRecursionLoop(List<Double> numbers) {
+  public double firstSumByRecursion(List<Double> numbers) {
     // use bigdecimal because solve float error
-    MathContext mathContext = new MathContext(4, RoundingMode.HALF_UP);
     BigDecimal result = new BigDecimal(0.0);
+    List<Double> removableNumbers = new ArrayList<Double>(numbers);
+    result =
+        firstSumByRecursionBody(removableNumbers, removableNumbers.remove(0));
 
-    while(numbers.size() != 0) {
-      BigDecimal addNumber = new BigDecimal(numbers.remove(0));
-      result = result.add(addNumber, mathContext);
-    }
     return result.doubleValue();
+  }
+
+  private BigDecimal firstSumByRecursionBody(List<Double> removableNumbers,
+      double number) {
+    MathContext mathContext = new MathContext(4, RoundingMode.HALF_UP);
+    BigDecimal addNumber = new BigDecimal(number);
+
+    if (removableNumbers.size() != 0) {
+      BigDecimal childAddNumber =
+          firstSumByRecursionBody(removableNumbers, removableNumbers.remove(0));
+      addNumber = addNumber.add(childAddNumber, mathContext);
+    }
+    return addNumber;
   }
 
 }

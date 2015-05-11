@@ -67,6 +67,14 @@ public class FiveQuestionsTest {
       assertThat(msg, actual, is(p.expected));
     }
 
+    @Theory
+    public void ByRecursionLoop(Fixture p) {
+      sut = new FiveQuestions();
+      double actual = sut.firstSumByWhileLoop(p.numbers);
+      String msg = String.format("When numbers is <%s>", p.numbers);
+      assertThat(msg, actual, is(p.expected));
+    }
+
     @SuppressWarnings("serial")
     private static ArrayList<Double> generateNumbers(double... numbers) {
       return new ArrayList<Double>() {

@@ -216,6 +216,8 @@ public class FiveQuestionsTest {
 
     @DataPoints
     public static Fixture[] PARAMs = {
+        new Fixture(generateNumbers(), new BigDecimal("0")),
+        new Fixture(generateNumbers(1), new BigDecimal("1")),
         new Fixture(generateNumbers(1, 2), new BigDecimal("21")),
         new Fixture(generateNumbers(2, 5, 1, 3), new BigDecimal("5321")),
         new Fixture(generateNumbers(50, 2, 1, 9), new BigDecimal("95021")),

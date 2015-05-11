@@ -135,6 +135,10 @@ public class FiveQuestions {
   public BigDecimal fourthSort(List<Integer> targetList) {
     BigDecimal result;
     
+    if(targetList.size() < 1) {
+      return new BigDecimal(0);
+    }
+    
     List<String> charSortableList = new ArrayList<String>();
     for (Integer number : targetList) {
       charSortableList.add(number.toString());

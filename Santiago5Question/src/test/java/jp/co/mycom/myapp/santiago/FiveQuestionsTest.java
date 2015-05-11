@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.experimental.theories.DataPoints;
@@ -209,7 +210,49 @@ public class FiveQuestionsTest {
 
   // 問題4
   // 正の整数のリストを与えられたとき、数を並び替えて可能な最大数を返す関数を記述せよ。
-  // 例えば、[50, 2, 1, 9]が与えられた時、95021が答えとなる(解答例)。
+  // 例えば、[50, 2, 1, 9]が与えられた時、95021が答えとなる(解答例)
+  @RunWith(Theories.class)
+  public static class FourthQuestion {
+
+    @DataPoints
+    public static Fixture[] PARAMs = {
+        new Fixture(generateNumbers(1, 2), new BigDecimal("21")),
+        new Fixture(generateNumbers(2, 5, 1, 3), new BigDecimal("5321")),
+        new Fixture(generateNumbers(50, 2, 1, 9), new BigDecimal("95021")),
+    };
+
+    public FourthQuestion() {
+      sut = new FiveQuestions();
+    }
+
+    @Theory
+    public void bigNumberSort(Fixture p) {
+      BigDecimal actual = sut.fourthSort(p.targetList);
+      String msg = String.format("When targetList is <%s>", p.targetList);
+      assertThat(msg, actual, is(p.expected));
+    }
+
+    @SuppressWarnings("serial")
+    private static ArrayList<Integer> generateNumbers(int... numbers) {
+      return new ArrayList<Integer>() {
+        {
+          for (int number : numbers) {
+            add(number);
+          }
+        }
+      };
+    }
+
+    static class Fixture {
+      List<Integer> targetList;
+      BigDecimal expected;
+
+      Fixture(List<Integer> targetList, BigDecimal expected) {
+        this.targetList = targetList;
+        this.expected = expected;
+      }
+    }
+  }
 
   // 問題5
   // 1,2,…,9の数をこの順序で、”+”、”-“、またはななにもせず結果が100となるあらゆる組合せを出力するプログラムを記述せよ。

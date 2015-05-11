@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -131,6 +132,24 @@ public class FiveQuestions {
    * 正の整数のリストを与えられたとき、数を並び替えて可能な最大数を返す関数を記述せよ。
    * 例えば、[50, 2, 1, 9]が与えられた時、95021が答えとなる(解答例)。
    */
+  public BigDecimal fourthSort(List<Integer> targetList) {
+    BigDecimal result;
+    
+    List<String> charSortableList = new ArrayList<String>();
+    for (Integer number : targetList) {
+      charSortableList.add(number.toString());
+    }
+    
+    charSortableList.sort((a, b) -> b.compareTo(a));
+    
+    String bigNumber = "";
+    for (String number : charSortableList) {
+      bigNumber += number;
+    }
+    result = new BigDecimal(bigNumber);
+    
+    return result;
+  }
 
   /*
    * ・問題5

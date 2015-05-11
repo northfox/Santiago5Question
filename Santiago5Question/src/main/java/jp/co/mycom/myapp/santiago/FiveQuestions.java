@@ -41,7 +41,7 @@ public class FiveQuestions {
     }
     return result.doubleValue();
   }
-  
+
   private BigDecimal addBigDecimal(BigDecimal result, double number) {
     BigDecimal addNumber = new BigDecimal(number);
     result = result.add(addNumber, new MathContext(4, RoundingMode.HALF_UP));
@@ -52,16 +52,19 @@ public class FiveQuestions {
       List<String> secondList) {
     List<String> result = new ArrayList<String>();
     int maxListSize = Math.max(firstList.size(), secondList.size());
-    
-    for(int i = 0; i < maxListSize; i++) {
-      if(firstList.size() > i) {
-        result.add(firstList.get(i));
-      }
-      if(secondList.size() > i) {
-        result.add(secondList.get(i));
-      }
+
+    for (int i = 0; i < maxListSize; i++) {
+      addUnlessEmpty(result, firstList, i);
+      addUnlessEmpty(result, secondList, i);
     }
-    
+
     return result;
+  }
+
+  private void addUnlessEmpty(
+      List<String> result, List<String> list, int i) {
+    if (list.size() > i) {
+      result.add(list.get(i));
+    }
   }
 }

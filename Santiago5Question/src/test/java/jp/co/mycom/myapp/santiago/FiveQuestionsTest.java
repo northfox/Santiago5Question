@@ -172,98 +172,38 @@ public class FiveQuestionsTest {
   // 最初の100個のフィボナッチ数のリストを計算する関数を記述せよ。
   // 定義では、フィボナッチ数列の最初の2つの数字は0と1で、次の数は前の2つの合計となる。
   // 例えば最初の10個のフィボナッチ数列は、0, 1, 1, 2, 3, 5, 8, 13, 21, 34となる。
+  @RunWith(Theories.class)
   public static class ThirdQuestion {
-    @Test
-    public void thirdCalcFibonacciNumbersCanCalcFrom0To3() {
-      // expect
+    public ThirdQuestion() {
       sut = new FiveQuestions();
-      BigDecimal expected = new BigDecimal("2");
-
-      // exercise
-      BigDecimal actual = sut.thirdCalcFibonacciNumbers(3);
-
-      // verify
-      assertThat(actual, is(expected));
+    }
+    
+    @DataPoints
+    public static Fixture[] PARAMs = {
+      new Fixture(0, new BigDecimal("0")),
+      new Fixture(1, new BigDecimal("0")),
+      new Fixture(2, new BigDecimal("1")),
+      new Fixture(3, new BigDecimal("2")),
+      new Fixture(10, new BigDecimal("88")),
+      new Fixture(50, new BigDecimal("20365011073")),
+      new Fixture(100, new BigDecimal("573147844013817084100")),
+    };
+    
+    @Theory
+    public void calcFibonacciNumbers(Fixture p) {
+      BigDecimal actual = sut.thirdCalcFibonacciNumbers(p.numberOfLoop);
+      String msg = String.format("When numberOfLoop is <%s>", p.numberOfLoop);
+      assertThat(msg, actual, is(p.expected));
     }
 
-    @Test
-    public void thirdCalcFibonacciNumbersCanCalcFrom0To10() {
-      // expect
-      sut = new FiveQuestions();
-      BigDecimal expected = new BigDecimal("88");
+    static class Fixture {
+      int numberOfLoop;
+      BigDecimal expected;
 
-      // exercise
-      BigDecimal actual = sut.thirdCalcFibonacciNumbers(10);
-
-      // verify
-      assertThat(actual, is(expected));
-    }
-
-    @Test
-    public void thirdCalcFibonacciNumbersCanCalcFrom0To50() {
-      // expect
-      sut = new FiveQuestions();
-      BigDecimal expected = new BigDecimal("20365011073");
-
-      // exercise
-      BigDecimal actual = sut.thirdCalcFibonacciNumbers(50);
-
-      // verify
-      assertThat(actual, is(expected));
-    }
-
-    @Test
-    public void thirdCalcFibonacciNumbersCanCalcFrom0To100() {
-      // expect
-      sut = new FiveQuestions();
-      // Ref: http://faizulsgalore.blogspot.jp/2013/08/fibonacci-sequence-number-result-output.html
-      BigDecimal expected = new BigDecimal("573147844013817084100");
-      System.out.println(expected);
-
-      // exercise
-      BigDecimal actual = sut.thirdCalcFibonacciNumbers(100);
-
-      // verify
-      assertThat(actual, is(expected));
-    }
-
-    @Test
-    public void thirdCalcFibonacciNumbersCanCalcFrom0To0() {
-      // expect
-      sut = new FiveQuestions();
-      BigDecimal expected = new BigDecimal("0");
-
-      // exercise
-      BigDecimal actual = sut.thirdCalcFibonacciNumbers(0);
-
-      // verify
-      assertThat(actual, is(expected));
-    }
-
-    @Test
-    public void thirdCalcFibonacciNumbersCanCalcFrom0To1() {
-      // expect
-      sut = new FiveQuestions();
-      BigDecimal expected = new BigDecimal("0");
-
-      // exercise
-      BigDecimal actual = sut.thirdCalcFibonacciNumbers(1);
-
-      // verify
-      assertThat(actual, is(expected));
-    }
-
-    @Test
-    public void thirdCalcFibonacciNumbersCanCalcFrom0To2() {
-      // expect
-      sut = new FiveQuestions();
-      BigDecimal expected = new BigDecimal("1");
-
-      // exercise
-      BigDecimal actual = sut.thirdCalcFibonacciNumbers(2);
-
-      // verify
-      assertThat(actual, is(expected));
+      Fixture(int numberOfLoop, BigDecimal expected) {
+        this.numberOfLoop = numberOfLoop;
+        this.expected = expected;
+      }
     }
   }
 

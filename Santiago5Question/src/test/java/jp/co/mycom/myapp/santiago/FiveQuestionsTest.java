@@ -1,7 +1,12 @@
 package jp.co.mycom.myapp.santiago;
 
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Before;
 import org.junit.Test;
 
 //問題1
@@ -25,10 +30,106 @@ import org.junit.Test;
 //例えば、1 + 2 + 34 – 5 + 67 – 8 + 9 = 100となる(解答例)
 
 public class FiveQuestionsTest {
+  
+  private FiveQuestions sut;
+  
+  @Before
+  public void before() {
+    sut = new FiveQuestions();
+  }
 
   @Test
-  public void test() {
-    fail("Not yet implemented");
+  public void firstWithForLoopCanSumByOneNumber() {
+    // expect
+    double expected = 1.0;
+    List<Double> numbers = new ArrayList<Double>() {
+      {
+        add(1.0);
+      }
+    };
+    
+    // exercise
+    double actual = sut.firstSumWithForLoop(numbers);
+    
+    // verify
+    assertThat(actual, is(expected));
+  }
+
+  @Test
+  public void firstWithForLoopCanSumByNumbers() {
+    // expect
+    double expected = 6.0;
+    List<Double> numbers = new ArrayList<Double>() {
+      {
+        add(1.0);
+        add(2.0);
+        add(3.0);
+      }
+    };
+    
+    // exercise
+    double actual = sut.firstSumWithForLoop(numbers);
+    
+    // verify
+    assertThat(actual, is(expected));
+  }
+
+  @Test
+  public void firstWithForLoopCanSummaryByFloatingNumbers() {
+    // expect
+    double expected = 6.5;
+    List<Double> numbers = new ArrayList<Double>() {
+      {
+        add(1.1);
+        add(2.3);
+        add(3.1);
+      }
+    };
+    
+    // exercise
+    double actual = sut.firstSumWithForLoop(numbers);
+    
+    // verify
+    assertThat(actual, is(expected));
+  }
+
+  @Test
+  public void firstWithForLoopCanSummaryByMinusFloatingNumbers() {
+    // expect
+    double expected = -6.5;
+    List<Double> numbers = new ArrayList<Double>() {
+      {
+        add(-1.1);
+        add(-2.3);
+        add(-3.1);
+      }
+    };
+    
+    // exercise
+    double actual = sut.firstSumWithForLoop(numbers);
+    
+    // verify
+    assertThat(actual, is(expected));
+  }
+
+  @Test
+  public void firstWithForLoopCanSummaryByPlusAndMinusFloatingNumbers() {
+    // expect
+    double expected = -1.4;
+    List<Double> numbers = new ArrayList<Double>() {
+      {
+        add(0.5);
+        add(-1.1);
+        add(2.3);
+        add(-3.1);
+      }
+    };
+    
+    // exercise
+    double actual = sut.firstSumWithForLoop(numbers);
+    
+    // verify
+    assertThat(actual, is(expected));
   }
 
 }

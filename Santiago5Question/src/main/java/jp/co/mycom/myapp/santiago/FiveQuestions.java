@@ -47,4 +47,21 @@ public class FiveQuestions {
     result = result.add(addNumber, new MathContext(4, RoundingMode.HALF_UP));
     return result;
   }
+
+  public List<String> secondMerge(List<String> firstList,
+      List<String> secondList) {
+    List<String> result = new ArrayList<String>();
+    int maxListSize = Math.max(firstList.size(), secondList.size());
+    
+    for(int i = 0; i < maxListSize; i++) {
+      if(firstList.size() > i) {
+        result.add(firstList.get(i));
+      }
+      if(secondList.size() > i) {
+        result.add(secondList.get(i));
+      }
+    }
+    
+    return result;
+  }
 }

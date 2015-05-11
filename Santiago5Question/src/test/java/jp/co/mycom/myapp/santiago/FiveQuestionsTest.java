@@ -6,6 +6,8 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.experimental.theories.DataPoints;
 import org.junit.experimental.theories.Theories;
@@ -42,6 +44,7 @@ public class FiveQuestionsTest {
   //
   @RunWith(Theories.class)
   public static class FirstQuestion {
+
     @DataPoints
     public static Fixture[] PARAMs = {
         new Fixture(generateNumbers(1.0), 1.0),
@@ -85,7 +88,7 @@ public class FiveQuestionsTest {
         }
       };
     }
-    
+
     static class Fixture {
       List<Double> numbers;
       double expected;
@@ -97,7 +100,69 @@ public class FiveQuestionsTest {
     }
   }
 
+  // 問題2
+  // 交互に要素を取ることで、2つのリストを結合する関数を記述せよ。
+  // 例えば [a, b, c]と[1, 2, 3]という2つのリストを与えると、関数は [a, 1, b, 2, c, 3]を返す。
+  @RunWith(Theories.class)
   public static class SecondQuestion {
-    
+
+    public SecondQuestion() {
+      sut = new FiveQuestions();
+    }
+
+    @DataPoints
+    public static Fixture[] PARAMs = {
+        new Fixture(generateList("a"), generateList("1"),
+            generateList("a", "1")),
+        new Fixture(generateList("a", "b", "c"), generateList("1", "2", "3"),
+            generateList("a", "1", "b", "2", "c", "3")),
+        new Fixture(generateList("a", "b"), generateList("1", "2", "3"),
+            generateList("a", "1", "b", "2", "3")),
+        new Fixture(generateList(), generateList("1", "2", "3"),
+            generateList("1", "2", "3")),
+        new Fixture(generateList(), generateList(),
+            generateList()),
+    };
+
+    @Theory
+    public void mergeList(Fixture p) {
+      // expect
+      List<String> firstList = p.firstList;
+      List<String> secondList = p.secondList;
+      List<String> expected = p.expected;
+
+      // exercise
+      List<String> actual = sut.secondMerge(firstList, secondList);
+
+      // verify
+      String msg =
+          String.format("When first list is <%s>, second list is <%s>",
+              p.firstList, p.secondList);
+      assertThat(msg, actual, is(expected));
+    }
+
+    @SuppressWarnings("serial")
+    private static ArrayList<String> generateList(String... args) {
+      return new ArrayList<String>() {
+        {
+          for (String arg : args) {
+            add(arg);
+          }
+        }
+      };
+    }
+
+    static class Fixture {
+      List<String> firstList;
+      List<String> secondList;
+      List<String> expected;
+
+      Fixture(List<String> firstList, List<String> secondList,
+          List<String> expected) {
+        this.firstList = firstList;
+        this.secondList = secondList;
+        this.expected = expected;
+      }
+    }
   }
 }

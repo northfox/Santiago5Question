@@ -42,6 +42,10 @@ public class FiveQuestionsTest {
   //
   @RunWith(Theories.class)
   public static class FirstQuestion {
+    
+    public FirstQuestion() {
+      sut = new FiveQuestions();
+    }
 
     @DataPoints
     public static Fixture[] PARAMs = {
@@ -54,7 +58,6 @@ public class FiveQuestionsTest {
 
     @Theory
     public void ByForLoop(Fixture p) {
-      sut = new FiveQuestions();
       double actual = sut.firstSumByForLoop(p.numbers);
       String msg = String.format("When numbers is <%s>", p.numbers);
       assertThat(msg, actual, is(p.expected));
@@ -62,7 +65,6 @@ public class FiveQuestionsTest {
 
     @Theory
     public void ByWhileLoop(Fixture p) {
-      sut = new FiveQuestions();
       double actual = sut.firstSumByWhileLoop(p.numbers);
       String msg = String.format("When numbers is <%s>", p.numbers);
       assertThat(msg, actual, is(p.expected));
@@ -70,7 +72,6 @@ public class FiveQuestionsTest {
 
     @Theory
     public void ByRecursion(Fixture p) {
-      sut = new FiveQuestions();
       double actual = sut.firstSumByRecursion(p.numbers);
       String msg = String.format("When numbers is <%s>", p.numbers);
       assertThat(msg, actual, is(p.expected));

@@ -385,5 +385,17 @@ public class FiveQuestionsTest {
       // verify
       assertThat(true, is(allPatterns.contains(expected)));
     }
+
+    @Test
+    public void fifthFindExpressionBeingHundredCannotFindWrongExpression() {
+      // expect
+      String expected = "-123+45-67+8-9";
+
+      // exercise
+      List<String> allPatterns = sut.fifthFindExpressionBeingHundred();
+
+      // verify
+      assertThat(false, is(allPatterns.contains(expected)));
+    }
   }
 }

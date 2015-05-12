@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -134,25 +133,34 @@ public class FiveQuestions {
    */
   public BigDecimal fourthSort(List<Integer> targetList) {
     BigDecimal result;
-    
-    if(targetList.size() < 1) {
+
+    if (targetList.size() < 1) {
       return new BigDecimal(0);
     }
-    
+
+    List<String> sourableList = generateSortableListByChar(targetList);
+    sourableList.sort((a, b) -> b.compareTo(a));
+
+    String bigNumber = concatNumbers(sourableList);
+    result = new BigDecimal(bigNumber);
+
+    return result;
+  }
+
+  private String concatNumbers(List<String> sourableList) {
+    String bigNumber = "";
+    for (String number : sourableList) {
+      bigNumber += number;
+    }
+    return bigNumber;
+  }
+
+  private List<String> generateSortableListByChar(List<Integer> targetList) {
     List<String> charSortableList = new ArrayList<String>();
     for (Integer number : targetList) {
       charSortableList.add(number.toString());
     }
-    
-    charSortableList.sort((a, b) -> b.compareTo(a));
-    
-    String bigNumber = "";
-    for (String number : charSortableList) {
-      bigNumber += number;
-    }
-    result = new BigDecimal(bigNumber);
-    
-    return result;
+    return charSortableList;
   }
 
   /*

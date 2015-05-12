@@ -7,6 +7,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.experimental.theories.DataPoints;
 import org.junit.experimental.theories.Theories;
@@ -256,4 +258,154 @@ public class FiveQuestionsTest {
   // 問題5
   // 1,2,…,9の数をこの順序で、”+”、”-“、またはななにもせず結果が100となるあらゆる組合せを出力するプログラムを記述せよ。
   // 例えば、1 + 2 + 34 – 5 + 67 – 8 + 9 = 100となる(解答例)
+  public static class FifthQuestion {
+    @Before
+    public void before() {
+      sut = new FiveQuestions();
+    }
+
+    @Test
+    public void fifthGenerateExpressionCanGenerate123456789() {
+      // expect
+      String expected = "+123456789";
+
+      // exercise
+      List<String> allExpressions = sut.fifthGenerateExpression();
+
+      // verify
+      assertThat(true, is(allExpressions.contains(expected)));
+    }
+
+    @Test
+    public void fifthGenerateExpressionCanGenerateAllPlus() {
+      // expect
+      String expected = "+1+2+3+4+5+6+7+8+9";
+
+      // exercise
+      List<String> allExpressions = sut.fifthGenerateExpression();
+
+      // verify
+      assertThat(true, is(allExpressions.contains(expected)));
+    }
+
+    @Test
+    public void fifthGenerateExpressionCannotGenerateStartingPlus() {
+      // expect
+      String expected = "1+2+3+4+5+6+7+8+9";
+
+      // exercise
+      List<String> allExpressions = sut.fifthGenerateExpression();
+
+      // verify
+      assertThat(false, is(allExpressions.contains(expected)));
+    }
+
+    @Test
+    public void fifthGenerateExpressionCanGenerateAllMinus() {
+      // expect
+      String expected = "-1-2-3-4-5-6-7-8-9";
+
+      // exercise
+      List<String> allExpressions = sut.fifthGenerateExpression();
+
+      // verify
+      assertThat(true, is(allExpressions.contains(expected)));
+    }
+
+    @Test
+    public void fifthGenerateExpressionCanGenerateMix() {
+      // expect
+      String expected = "-1+2-34-5-6+7-89";
+
+      // exercise
+      List<String> allExpressions = sut.fifthGenerateExpression();
+
+      // verify
+      assertThat(true, is(allExpressions.contains(expected)));
+    }
+
+    @Test
+    public void fifthCalcAnswerCanCalc123456789() {
+      // expect
+      Integer expected = 123456789;
+
+      // exercise
+      Integer actual = sut.fifthCalcAnswer("+123456789");
+
+      // verify
+      assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void fifthCalcAnswerCanCalcSimplePattern() {
+      // expect
+      Integer expected = 19134;
+
+      // exercise
+      Integer actual = sut.fifthCalcAnswer("+12345+6789");
+
+      // verify
+      assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void fifthCalcAnswerCanCalcAllPlus() {
+      // expect
+      Integer expected = 45;
+
+      // exercise
+      Integer actual = sut.fifthCalcAnswer("+1+2+3+4+5+6+7+8+9");
+
+      // verify
+      assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void fifthCalcAnswerCanCalcAllMinus() {
+      // expect
+      Integer expected = -45;
+
+      // exercise
+      Integer actual = sut.fifthCalcAnswer("-1-2-3-4-5-6-7-8-9");
+
+      // verify
+      assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void fifthCalcAnswerCanCalcMix() {
+      // expect
+      Integer expected = -126;
+
+      // exercise
+      Integer actual = sut.fifthCalcAnswer("-1+2-34-5-6+7-89");
+
+      // verify
+      assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void fifthFindCalculatableHundredCanFindExamplePattern() {
+      // expect
+      String expected = "1+2+34-5+67-8+9";
+
+      // exercise
+      List<String> allPatterns = sut.fifthFindCalculatableHundred();
+
+      // verify
+      assertThat(true, is(allPatterns.contains(expected)));
+    }
+
+    @Test
+    public void fifthFindCalculatableHundredCanFindExamplePattern2() {
+      // expect
+      String expected = "123+45-67+8-9";
+
+      // exercise
+      List<String> allPatterns = sut.fifthFindCalculatableHundred();
+
+      // verify
+      assertThat(true, is(allPatterns.contains(expected)));
+    }
+  }
 }

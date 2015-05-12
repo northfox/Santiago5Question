@@ -168,4 +168,67 @@ public class FiveQuestions {
    * 1,2,…,9の数をこの順序で、”+”、”-“、またはななにもせず結果が100となるあらゆる組合せを出力するプログラムを記述せよ。
    * 例えば、1 + 2 + 34 – 5 + 67 – 8 + 9 = 100となる(解答例)
    */
+  public List<String> fifthFindCalculatableHundred() {
+    List<String> result = new ArrayList<String>();
+
+    List<String> allExpressions = fifthGenerateExpression();
+
+    for (String expression : allExpressions) {
+      Integer answer = fifthCalcAnswer(expression);
+      if (answer.equals(100)) {
+        expression = expression.replaceFirst("^\\+", "");
+        result.add(expression);
+      }
+    }
+
+    return result;
+  }
+
+  Integer fifthCalcAnswer(String expression) {
+    int result = 0;
+
+    expression = expression.replaceAll("\\+", ",+");
+    expression = expression.replaceAll("\\-", ",-");
+    String[] blockedExpressions = expression.split(",");
+    blockedExpressions[0] = "+0";
+
+    for (String blockedExpression : blockedExpressions) {
+      if (blockedExpression.startsWith("+")) {
+        result += Integer.parseInt(blockedExpression.substring(1));
+      } else if (blockedExpression.startsWith("-")) {
+        result -= Integer.parseInt(blockedExpression.substring(1));
+      }
+    }
+
+    return result;
+  }
+
+  List<String> fifthGenerateExpression() {
+    List<String> operations = generateOperations();
+    List<String> previousExpressions = new ArrayList<String>();
+    List<String> currentExpressions = new ArrayList<String>();
+    currentExpressions.add("+1");
+    currentExpressions.add("-1");
+
+    for (int i = 2; i < 10; i++) {
+      previousExpressions = currentExpressions;
+      currentExpressions = new ArrayList<String>();
+
+      for (String underConstractExpression : previousExpressions) {
+        for (String operation : operations) {
+          currentExpressions.add(underConstractExpression + operation + i);
+        }
+      }
+    }
+
+    return currentExpressions;
+  }
+
+  private List<String> generateOperations() {
+    List<String> operations = new ArrayList<String>();
+    operations.add("");
+    operations.add("+");
+    operations.add("-");
+    return operations;
+  }
 }

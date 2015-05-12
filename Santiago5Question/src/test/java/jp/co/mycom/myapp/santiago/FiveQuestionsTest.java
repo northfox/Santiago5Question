@@ -295,10 +295,10 @@ public class FiveQuestionsTest {
     public void fifthGenerateExpressionCannotGenerateStartingPlus() {
       // expect
       String expected = "1+2+3+4+5+6+7+8+9";
-      
+
       // exercise
       List<String> allExpressions = sut.fifthGenerateExpression();
-      
+
       // verify
       assertThat(false, is(allExpressions.contains(expected)));
     }
@@ -306,11 +306,10 @@ public class FiveQuestionsTest {
     private void assertFifthGenerateExpression(String expected) {
       // exercise
       List<String> allExpressions = sut.fifthGenerateExpression();
-      
+
       // verify
       assertThat(true, is(allExpressions.contains(expected)));
     }
-    
 
     /*
      * for calc answer
@@ -357,7 +356,6 @@ public class FiveQuestionsTest {
       // verify
       assertThat(actual, is(expected));
     }
-    
 
     /*
      * for find expression being hundred

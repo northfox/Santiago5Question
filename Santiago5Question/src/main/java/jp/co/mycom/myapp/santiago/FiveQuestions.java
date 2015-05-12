@@ -168,7 +168,7 @@ public class FiveQuestions {
    * 1,2,…,9の数をこの順序で、”+”、”-“、またはななにもせず結果が100となるあらゆる組合せを出力するプログラムを記述せよ。
    * 例えば、1 + 2 + 34 – 5 + 67 – 8 + 9 = 100となる(解答例)
    */
-  public List<String> fifthFindCalculatableHundred() {
+  public List<String> fifthFindExpressionBeingHundred() {
     List<String> result = new ArrayList<String>();
 
     List<String> allExpressions = fifthGenerateExpression();

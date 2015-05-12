@@ -264,145 +264,123 @@ public class FiveQuestionsTest {
       sut = new FiveQuestions();
     }
 
+    /*
+     * for generate expression
+     */
     @Test
     public void fifthGenerateExpressionCanGenerate123456789() {
-      // expect
       String expected = "+123456789";
-
-      // exercise
-      List<String> allExpressions = sut.fifthGenerateExpression();
-
-      // verify
-      assertThat(true, is(allExpressions.contains(expected)));
+      assertFifthGenerateExpression(expected);
     }
 
     @Test
     public void fifthGenerateExpressionCanGenerateAllPlus() {
-      // expect
       String expected = "+1+2+3+4+5+6+7+8+9";
+      assertFifthGenerateExpression(expected);
+    }
 
-      // exercise
-      List<String> allExpressions = sut.fifthGenerateExpression();
+    @Test
+    public void fifthGenerateExpressionCanGenerateAllMinus() {
+      String expected = "-1-2-3-4-5-6-7-8-9";
+      assertFifthGenerateExpression(expected);
+    }
 
-      // verify
-      assertThat(true, is(allExpressions.contains(expected)));
+    @Test
+    public void fifthGenerateExpressionCanGenerateMix() {
+      String expected = "-1+2-34-5-6+7-89";
+      assertFifthGenerateExpression(expected);
     }
 
     @Test
     public void fifthGenerateExpressionCannotGenerateStartingPlus() {
       // expect
       String expected = "1+2+3+4+5+6+7+8+9";
-
+      
       // exercise
       List<String> allExpressions = sut.fifthGenerateExpression();
-
+      
       // verify
       assertThat(false, is(allExpressions.contains(expected)));
     }
 
-    @Test
-    public void fifthGenerateExpressionCanGenerateAllMinus() {
-      // expect
-      String expected = "-1-2-3-4-5-6-7-8-9";
-
+    private void assertFifthGenerateExpression(String expected) {
       // exercise
       List<String> allExpressions = sut.fifthGenerateExpression();
-
+      
       // verify
       assertThat(true, is(allExpressions.contains(expected)));
     }
+    
 
-    @Test
-    public void fifthGenerateExpressionCanGenerateMix() {
-      // expect
-      String expected = "-1+2-34-5-6+7-89";
-
-      // exercise
-      List<String> allExpressions = sut.fifthGenerateExpression();
-
-      // verify
-      assertThat(true, is(allExpressions.contains(expected)));
-    }
-
+    /*
+     * for calc answer
+     */
     @Test
     public void fifthCalcAnswerCanCalc123456789() {
-      // expect
       Integer expected = 123456789;
-
-      // exercise
-      Integer actual = sut.fifthCalcAnswer("+123456789");
-
-      // verify
-      assertThat(actual, is(expected));
+      String targetExpression = "+123456789";
+      assertFifthCalcAnswer(expected, targetExpression);
     }
 
     @Test
     public void fifthCalcAnswerCanCalcSimplePattern() {
-      // expect
       Integer expected = 19134;
-
-      // exercise
-      Integer actual = sut.fifthCalcAnswer("+12345+6789");
-
-      // verify
-      assertThat(actual, is(expected));
+      String targetExpression = "+12345+6789";
+      assertFifthCalcAnswer(expected, targetExpression);
     }
 
     @Test
     public void fifthCalcAnswerCanCalcAllPlus() {
-      // expect
       Integer expected = 45;
-
-      // exercise
-      Integer actual = sut.fifthCalcAnswer("+1+2+3+4+5+6+7+8+9");
-
-      // verify
-      assertThat(actual, is(expected));
+      String targetExpression = "+1+2+3+4+5+6+7+8+9";
+      assertFifthCalcAnswer(expected, targetExpression);
     }
 
     @Test
     public void fifthCalcAnswerCanCalcAllMinus() {
-      // expect
       Integer expected = -45;
-
-      // exercise
-      Integer actual = sut.fifthCalcAnswer("-1-2-3-4-5-6-7-8-9");
-
-      // verify
-      assertThat(actual, is(expected));
+      String targetExpression = "-1-2-3-4-5-6-7-8-9";
+      assertFifthCalcAnswer(expected, targetExpression);
     }
 
     @Test
     public void fifthCalcAnswerCanCalcMix() {
-      // expect
       Integer expected = -126;
+      String targetExpression = "-1+2-34-5-6+7-89";
+      assertFifthCalcAnswer(expected, targetExpression);
+    }
 
+    private void assertFifthCalcAnswer(Integer expected, String targetExpression) {
       // exercise
-      Integer actual = sut.fifthCalcAnswer("-1+2-34-5-6+7-89");
+      Integer actual = sut.fifthCalcAnswer(targetExpression);
 
       // verify
       assertThat(actual, is(expected));
     }
+    
 
+    /*
+     * for find expression being hundred
+     */
     @Test
-    public void fifthFindCalculatableHundredCanFindExamplePattern() {
+    public void fifthFindExpressionBeingHundredCanFindExamplePattern() {
       // expect
       String expected = "1+2+34-5+67-8+9";
 
       // exercise
-      List<String> allPatterns = sut.fifthFindCalculatableHundred();
+      List<String> allPatterns = sut.fifthFindExpressionBeingHundred();
 
       // verify
       assertThat(true, is(allPatterns.contains(expected)));
     }
 
     @Test
-    public void fifthFindCalculatableHundredCanFindExamplePattern2() {
+    public void fifthFindExpressionBeingHundredCanFindExamplePattern2() {
       // expect
       String expected = "123+45-67+8-9";
 
       // exercise
-      List<String> allPatterns = sut.fifthFindCalculatableHundred();
+      List<String> allPatterns = sut.fifthFindExpressionBeingHundred();
 
       // verify
       assertThat(true, is(allPatterns.contains(expected)));
